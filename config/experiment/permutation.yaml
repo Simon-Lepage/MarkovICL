@@ -1,0 +1,20 @@
+# @package _global_
+
+data: 
+  training_matrices: 1
+  use_remap: true
+
+model:
+  _target_: src.llama_wrappers.DefaultLlama
+  config: 
+    _target_: transformers.models.llama.LlamaConfig
+    vocab_size: ${data.n_nodes}
+    hidden_size: 128
+    intermediate_size:  ${model.config.hidden_size}
+    num_hidden_layers: 2
+    num_attention_heads: 1
+    max_position_embeddings: ${data.walk_len}
+    tie_word_embeddings: True
+    attention_dropout: 0.
+
+exp_name: permutation

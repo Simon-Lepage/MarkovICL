@@ -1,0 +1,9 @@
+# Computation
+einops==0.8.1
+numpy<2
+torch==2.6.0
+transformers==4.52.4
+# Utils
+hydra-core
+wandb
+tqdm

@@ -1,0 +1,47 @@
+defaults:
+- _self_
+- experiment: null
+- override hydra/hydra_logging: disabled  
+- override hydra/job_logging: disabled  
+
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .
+
+data:
+  # Graph Structure
+  n_nodes: 30
+  alpha: 0.1
+  walk_len: 1000
+  # Training
+  training_matrices: ??? # -1 | int
+  use_remap: ???
+  # Validation
+  validation_matrices: 5000
+  validation_walks: 1
+  metrics_cut: 20
+  # Data Loading
+  batch_size: 500
+  num_workers: 10 # Adapt to your CPUs
+
+optim:
+  _target_: torch.optim.AdamW
+  lr: 0.0003
+  weight_decay: 0.01
+
+train:
+  total_steps: 10000
+  clip_grad: 1.0
+  val_every: 100
+
+logger:
+  exp_id: ${exp_name}_${now}
+  project_name: markov_icl # Set to null to disable wandb
+
+device: cuda
+seed: 0
+now: ${now:%Y-%m-%d_%H-%M-%S}
+exp_name: ???
+
+# Model is defined in each experiment config
